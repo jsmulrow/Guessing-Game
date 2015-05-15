@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guessing Game</title>
+  <meta charset="utf-8">
+  <!-- Bootstrap -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <ul class="nav nav-pills pull-right">
+        <li>
+          <button button class="btn btn-success">Play Again?</button>
+        </li>
+        <li>
+          <button button class="btn btn-default">Hint</button>
+        </li>
+      </ul>
+   	  <h1 style="margin-top: 15px">Guessing Game <small>by Jack Mulrow</small></h1>
+    </header>
+    <div class="jumbotron">
+      <h1>Try to guess the number!</h1>
+      <p class="lead"> Input a number between 1 and 100 in the field below, then update your guess based on the given feedback.</p>
+    <div class="col-lg-6">
+      <div class="input-group input-group-lg" style="margin-top: 20px">
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="button">Submit!</button>
+        </span>
+        <input type="text" class="form-control" placeholder="Number between 1 and 100" id="playersGuess">
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+    <div class="alert alert-info" role="alert" style="margin-top: 40px">
+      <span id="guessesLeft">You have XX guesses left</span>
+    </div>
+    </div>
+  </div>
+</body>
+</html>
