@@ -30,8 +30,13 @@
         <input type="text" class="form-control" placeholder="Number between 1 and 100" id="playersGuess">
       </div><!-- /input-group -->
     </div><!-- /.col-lg-6 -->
-    <div class="alert alert-info" role="alert" style="margin-top: 40px">
-      <span id="guessesLeft">You have XX guesses left</span>
+    <!-- make this alert change colors and contents as number of guesses goes down / depending on how close they are; red if they lose, yellow when guesses left gets to 2, green if correct-->
+    <!-- this is better: blue if guess is cold, yellow if close, red if hot, green when correct - see how it actually looks-->
+    <div class="alert alert-warning" role="alert" style="margin-top: 25px">
+      <span id="guessesLeft">You haven't guessed yet!</span>
+    </div>
+    <div>
+      <h2>You have __ guesses left</h2>
     </div>
     </div>
   </div>
