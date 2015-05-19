@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Guessing Game</title>
+  <link rel="shortcut icon" href="favicon.ico">
   <meta charset="utf-8">
   <!-- Bootstrap -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -11,11 +12,11 @@
     <header class="page-header">
       <ul class="nav nav-pills pull-right">
         <li>
-          <button button class="btn btn-success" onclick="playAgain()">Play Again?</button>
+          <button button class="btn btn-success" id="newGame">Play Again?</button>
         </li>
         <li>
           <!-- maybe have this activate a JS script that adds a removable alert box with the hint -->
-          <button button class="btn btn-default" onclick="showHint()">Hint</button>
+          <button button class="btn btn-default" id="hint">Give me a Hint</button>
         </li>
       </ul>
    	  <h1>Guessing Game <small>by Jack Mulrow</small></h1>
@@ -26,7 +27,7 @@
       <div id="input-container">
         <div class="input-group input-group-lg" style="margin-top: 20px">
           <span class="input-group-btn">
-           <button class="btn btn-success" type="button" onclick="runGame()">Submit!</button>
+           <button class="btn btn-success" type="button" id="submit">Submit!</button>
           </span>
           <input type="text" class="form-control" placeholder="Number between 1 and 100" id="playersGuess">
         </div><!-- /input-group -->

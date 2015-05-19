@@ -4,35 +4,63 @@ var input;
 var guessesLeft = 5;
 var guesses = [];
 var message = $('<div role="alert" style="margin-top: 25px"></div>');
+var compMessage = $('<h3></h3>');
 
 // when loaded, initialize the randVal
 $(document).ready(function () {
 	randVal = Math.ceil(Math.random() * 100);
 });
 
-// sets random value for Guessing Game
+// new game button listener
+$('#newGame').click(function () {
+	playAgain();
+});
+
+// resets page and the necessary variables
 function playAgain() {
 	randVal = Math.floor(Math.random() * 100);
 	guessesLeft = 5;
+	guesses = [];
 	message.remove();
+	compMessage.remove();
+	$('#playersGuess').val('');
 	$('.list-group').empty();
 	$('#guessesRemaining').text(guessesLeft);
 	$('.title').text("Try to guess the number!");
 	$('.lead').text("Input a number between 1 and 100 in the field below, then update your guess based on the given feedback.");
+	$('#submit').prop('disabled', false);
 };
 
-function showHint() {
+// hint button listener
+$('#hint').click(function () {
 	alert('This is the value: '+randVal);
-};
+});
+
+// when enter key is pressed
+$('#playersGuess').keypress(function (e) {
+	if (e.which === 13)
+		runGame();
+});
+
+$('#submit').click(function (e) {
+	runGame();
+});
 
 // submit button script
 function runGame() {
-	// store the input
+	// store the input and reset the input field
 	input = parseInt($('#playersGuess').val());
+	$('#playersGuess').val('');
 
 	// check if guess is valid
 	if (!isValid(input)) {
 		alert("Please enter a value between 1 and 100");
+		return;
+	}
+
+	// check if already guessed this value
+	if (isRepeat(input)) {
+		alert("You have already guessed that number");
 		return;
 	}
 
@@ -45,7 +73,9 @@ function runGame() {
 
 	// update record of old guesses, with appropriate colors
 	var oldG = $("<li class='list-group-item'></li>");
-	if (isWarm(guesses[guesses.length-1])) {
+	if (randVal === input)
+		oldG.addClass('list-group-item-success');
+	else if (isWarm(guesses[guesses.length-1])) {
 		if (isHot(guesses[guesses.length-1])) 
 			oldG.addClass('list-group-item-danger');
 		else
@@ -55,6 +85,11 @@ function runGame() {
 		oldG.addClass('list-group-item-info');
 	}
 	$('.list-group').prepend(oldG.text(guesses[guesses.length-1]));
+
+	// compare to old guess
+	$('#input-container').append(compMessage);
+	if (guesses.length > 1)
+		isCloser(input) ? compMessage.text('Getting warmer!') : compMessage.text('Getting colder');
 
 	// replace old alert
 	message.removeClass();
@@ -67,6 +102,7 @@ function runGame() {
 		message.addClass('alert alert-success');
 		$('.title').addClass("color:red").text("You won!");
 		$('.lead').text("Congratulations!");
+		disableSubmit();
 		return;
 	}
 	else if (Math.abs(randVal - input) <= 5) {
@@ -105,15 +141,8 @@ function runGame() {
 	if (guessesLeft === 0) {
 		$('.title').text("Game Over");
 		$('.lead').text("Press 'Play Again' button to try again");
+		disableSubmit();
 	}
-};
-
-function oldGuesses() {
-	var output = '';
-	guesses.forEach(function(i) {
-		output += guesses[i] + ' ';
-	});
-	return output;
 };
 
 // returns true if the val was "warm" and false otherwise
@@ -131,11 +160,21 @@ function isHot(val) {
 };
 
 // true if val is in the prev array
-function isRepeat(val, prev) {
-	val in prev;
+function isRepeat(val) {
+	return (guesses.indexOf(val) !== -1);
 }
 
 // returns true if the input is valid
 function isValid(val) {
 	return Number.isInteger(val) && val <= 100 && val >= 1;
+}
+
+// disables the submit button
+function disableSubmit() {
+	$('#submit').prop('disabled', true);
+}
+
+// true if current guess is closer to randVal
+function isCloser(val) {
+	return (Math.abs(randVal - val) < Math.abs(randVal - guesses[guesses.length-2]));
 }
