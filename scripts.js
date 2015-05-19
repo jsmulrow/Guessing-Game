@@ -1,7 +1,7 @@
 // set global values
 var randVal;
 var input;
-var totalGuesses = 5
+var totalGuesses = 5;
 var guessesLeft = totalGuesses;
 var guesses = [];
 var message = $('<div role="alert" style="margin-top: 25px"></div>');
@@ -24,7 +24,7 @@ function playAgain() {
 	guessesLeft = totalGuesses;
 	guesses = [];
 	message.remove();
-	compMessage.remove();
+	compMessage.text('').remove();
 	$('#playersGuess').val('');
 	$('.list-group').empty();
 	$('#guessesRemaining').text(guessesLeft);
@@ -104,9 +104,10 @@ function runGame() {
 		// set alert to Green and say you won!!
 		message.text('You got it!!');
 		message.addClass('alert alert-success');
-		$('.title').addClass("color:red").text("You won!");
+		$('.title').text("You won!");
 		$('.lead').text("Congratulations! Press the 'Play Again' button to try again.");
 		disableSubmit();
+		compMessage.remove();
 		return;
 	}
 	else if (Math.abs(randVal - input) <= 5) {
@@ -146,6 +147,7 @@ function runGame() {
 		$('.title').text("Game Over");
 		$('.lead').text("Press 'Play Again' button to try again.");
 		disableSubmit();
+		compMessage.remove();
 	}
 };
 
