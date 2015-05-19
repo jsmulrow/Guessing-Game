@@ -76,9 +76,10 @@ function runGame() {
 	$('#guessesRemaining').text(guessesLeft);
 
 	// update record of old guesses, with appropriate colors
-	var oldG = $("<li class='list-group-item'></li>");
-	if (randVal === input)
+	var oldG = $("<li class='list-group-item'><span id='val'></span><span id='comp'></span></li>");
+	if (randVal === input) {
 		oldG.addClass('list-group-item-success');
+	}
 	else if (isWarm(guesses[guesses.length-1])) {
 		if (isHot(guesses[guesses.length-1])) 
 			oldG.addClass('list-group-item-danger');
@@ -88,7 +89,8 @@ function runGame() {
 	else {
 		oldG.addClass('list-group-item-info');
 	}
-	$('.list-group').prepend(oldG.text(guesses[guesses.length-1]));
+	$('.list-group').prepend(oldG);
+	$('#val').text(guesses[guesses.length-1]);
 
 	// compare to old guess
 	$('#input-container').append(compMessage);
@@ -106,6 +108,7 @@ function runGame() {
 		message.addClass('alert alert-success');
 		$('.title').text("You won!");
 		$('.lead').text("Congratulations! Press the 'Play Again' button to try again.");
+		$('#comp').text(' - correct!');
 		disableSubmit();
 		compMessage.remove();
 		return;
@@ -113,33 +116,49 @@ function runGame() {
 	else if (Math.abs(randVal - input) <= 5) {
 		// set alert to Red and say you are very hot
 		message.addClass('alert alert-danger');
-		if (randVal > input)
+		if (randVal > input) {
 			message.text('Really close - Guess a little higher!');
-		else
+			$('#comp').text(' - a little too low');
+		}
+		else {
 			message.text('Really close - Guess a little lower!');
+			$('#comp').text(' - a little too high');
+		}
 	}
 	else if (Math.abs(randVal - input) <= 20) {
 		// change alert color to yellow and say you are close
 		message.addClass('alert alert-warning');
-		if (randVal > input)
+		if (randVal > input) {
 			message.text('Warm - Guess higher!');
-		else
+			$('#comp').text(' - too low');
+		}
+		else {
 			message.text('Warm - Guess lower!');
+			$('#comp').text(' - too high');
+		}
 	}
 	else if (Math.abs(randVal - input) <= 50) {
 		// change alert to blue and say you are cold
 		message.addClass('alert alert-info');
-		if (randVal > input)
+		if (randVal > input) {
 			message.text('Cold - Guess higher!');
-		else
+			$('#comp').text(' - too low');
+		}
+		else {
 			message.text('Cold - Guess lower!');
+			$('#comp').text(' - too high');
+		}
 	}
 	else {
 		message.addClass('alert alert-info');
-		if (randVal > input)
+		if (randVal > input) {
 			message.text('Very Cold - Guess much higher!');
-		else
+			$('#comp').text(' - way too low');
+		}
+		else {
 			message.text('Very Cold - Guess much lower!');
+			$('#comp').text(' - way too high');
+		}
 	}
 
 	// check for Game Over
