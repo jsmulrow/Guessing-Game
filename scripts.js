@@ -194,7 +194,7 @@ function isRepeat(val) {
 
 // returns true if the input is valid
 function isValid(val) {
-	return Number.isInteger(val) && val <= 100 && val >= 1;
+	return $.isNumeric(val) && val <= 100 && val >= 1;
 }
 
 // disables the submit button
