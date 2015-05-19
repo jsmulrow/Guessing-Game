@@ -11,6 +11,7 @@ var compMessage = $('<h3></h3>');
 $(document).ready(function () {
 	randVal = Math.ceil(Math.random() * 100);
 	$('#guessesRemaining').text(guessesLeft);
+	$('#playersGuess').focus();
 });
 
 // new game button listener
@@ -25,13 +26,12 @@ function playAgain() {
 	guesses = [];
 	message.remove();
 	compMessage.text('').remove();
-	$('#playersGuess').val('');
 	$('.list-group').empty();
-	$('#guessesRemaining').text(guessesLeft);
 	$('.title').text("Try to guess the number!");
 	$('.lead').text("Input a number between 1 and 100 in the field below, then update your guess based on the given feedback.");
+	$('#guessesRemaining').text(guessesLeft);
 	$('#submit').prop('disabled', false);
-	$('#playersGuess').prop('disabled', false);
+	$('#playersGuess').val('').prop('disabled', false).focus();
 };
 
 // hint button listener
@@ -197,10 +197,11 @@ function isValid(val) {
 	return $.isNumeric(val) && val <= 100 && val >= 1;
 }
 
-// disables the submit button
+// disables the submit button and focuses on Play Again button
 function disableSubmit() {
 	$('#submit').prop('disabled', true);
 	$('#playersGuess').prop('disabled', true);
+	$('#newGame').focus();
 }
 
 // true if current guess is closer to randVal
