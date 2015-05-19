@@ -1,7 +1,7 @@
 // set global values
 var randVal;
 var input;
-var totalGuesses = 5
+var totalGuesses = 5;
 var guessesLeft = totalGuesses;
 var guesses = [];
 var message = $('<div role="alert" style="margin-top: 25px"></div>');
@@ -10,6 +10,7 @@ var compMessage = $('<h3></h3>');
 // when loaded, initialize the randVal
 $(document).ready(function () {
 	randVal = Math.ceil(Math.random() * 100);
+	$('#guessesRemaining').text(guessesLeft);
 });
 
 // new game button listener
@@ -44,6 +45,7 @@ $('#playersGuess').keypress(function (e) {
 		runGame();
 });
 
+// submit key click listener
 $('#submit').click(function (e) {
 	runGame();
 });
@@ -103,7 +105,7 @@ function runGame() {
 		message.text('You got it!!');
 		message.addClass('alert alert-success');
 		$('.title').text("You won!");
-		$('.lead').text("Congratulations! Press 'Play Again' button to try again.");
+		$('.lead').text("Congratulations! Press the 'Play Again' button to try again.");
 		disableSubmit();
 		compMessage.remove();
 		return;
