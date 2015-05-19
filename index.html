@@ -11,35 +11,39 @@
     <header class="page-header">
       <ul class="nav nav-pills pull-right">
         <li>
-          <button button class="btn btn-success">Play Again?</button>
+          <button button class="btn btn-success" onclick="playAgain()">Play Again?</button>
         </li>
         <li>
           <!-- maybe have this activate a JS script that adds a removable alert box with the hint -->
-          <button button class="btn btn-default">Hint</button>
+          <button button class="btn btn-default" onclick="showHint()">Hint</button>
         </li>
       </ul>
    	  <h1>Guessing Game <small>by Jack Mulrow</small></h1>
     </header>
     <div class="jumbotron">
-      <h1>Try to guess the number!</h1>
+      <h1 class="title">Try to guess the number!</h1>
       <p class="lead"> Input a number between 1 and 100 in the field below, then update your guess based on the given feedback.</p>
-    <div class="col-lg-6">
-      <div class="input-group input-group-lg" style="margin-top: 20px">
-        <span class="input-group-btn">
-          <button class="btn btn-success" type="button">Submit!</button>
-        </span>
-        <input type="text" class="form-control" placeholder="Number between 1 and 100" id="playersGuess">
-      </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
+      <div id="input-container">
+        <div class="input-group input-group-lg" style="margin-top: 20px">
+          <span class="input-group-btn">
+           <button class="btn btn-success" type="button" onclick="runGame()">Submit!</button>
+          </span>
+          <input type="text" class="form-control" placeholder="Number between 1 and 100" id="playersGuess">
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
     <!-- make this alert change colors and contents as number of guesses goes down / depending on how close they are; red if they lose, yellow when guesses left gets to 2, green if correct-->
     <!-- this is better: blue if guess is cold, yellow if close, red if hot, green when correct - see how it actually looks-->
-    <div class="alert alert-warning" role="alert" style="margin-top: 25px">
-      <span id="guessesLeft">You haven't guessed yet!</span>
+      <div>
+        <h2>You have <span id="guessesRemaining">5</span> guesses left</h2>
+      </div>
+      <div>
+        <h3 class="list-heading">Past Guesses (Blue is cold, Yellow is warm, and Red is hot):</h3>
+        <ul class="list-group" id="pastGuesses">
+        </ul>
+      </div>
     </div>
-    <div>
-      <h2 id="guessesLeft">You have __ guesses left</h2>
-    </div>
-    </div>
+    <script src="jquery.min.js"></script>
+    <script src="scripts.js"></script>
   </div>
 </body>
 </html>
