@@ -146,6 +146,7 @@ function runGame() {
 	if (guessesLeft === 0) {
 		$('.title').text("Game Over");
 		$('.lead').text("Press 'Play Again' button to try again.");
+		message.text('You ran out of guesses. Don\'t give up - try again!');
 		disableSubmit();
 		compMessage.remove();
 	}
