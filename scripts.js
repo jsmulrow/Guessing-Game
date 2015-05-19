@@ -36,7 +36,7 @@ function playAgain() {
 
 // hint button listener
 $('#hint').click(function () {
-	alert('This is the value: '+randVal);
+	alert('The number is: '+randVal);
 });
 
 // when enter key is pressed
@@ -147,6 +147,8 @@ function runGame() {
 		$('.title').text("Game Over");
 		$('.lead').text("Press 'Play Again' button to try again.");
 		message.text('You ran out of guesses. Don\'t give up - try again!');
+		message.removeClass();
+		message.addClass('alert alert-info');
 		disableSubmit();
 		compMessage.remove();
 	}
