@@ -1,7 +1,8 @@
 // set global values
 var randVal;
 var input;
-var guessesLeft = 5;
+var totalGuesses = 5
+var guessesLeft = totalGuesses;
 var guesses = [];
 var message = $('<div role="alert" style="margin-top: 25px"></div>');
 var compMessage = $('<h3></h3>');
@@ -19,16 +20,17 @@ $('#newGame').click(function () {
 // resets page and the necessary variables
 function playAgain() {
 	randVal = Math.floor(Math.random() * 100);
-	guessesLeft = 5;
+	guessesLeft = totalGuesses;
 	guesses = [];
 	message.remove();
-	compMessage.remove();
+	compMessage.text('').remove();
 	$('#playersGuess').val('');
 	$('.list-group').empty();
 	$('#guessesRemaining').text(guessesLeft);
 	$('.title').text("Try to guess the number!");
 	$('.lead').text("Input a number between 1 and 100 in the field below, then update your guess based on the given feedback.");
 	$('#submit').prop('disabled', false);
+	$('#playersGuess').prop('disabled', false);
 };
 
 // hint button listener
@@ -100,9 +102,10 @@ function runGame() {
 		// set alert to Green and say you won!!
 		message.text('You got it!!');
 		message.addClass('alert alert-success');
-		$('.title').addClass("color:red").text("You won!");
-		$('.lead').text("Congratulations!");
+		$('.title').text("You won!");
+		$('.lead').text("Congratulations! Press 'Play Again' button to try again.");
 		disableSubmit();
+		compMessage.remove();
 		return;
 	}
 	else if (Math.abs(randVal - input) <= 5) {
@@ -140,8 +143,9 @@ function runGame() {
 	// check for Game Over
 	if (guessesLeft === 0) {
 		$('.title').text("Game Over");
-		$('.lead').text("Press 'Play Again' button to try again");
+		$('.lead').text("Press 'Play Again' button to try again.");
 		disableSubmit();
+		compMessage.remove();
 	}
 };
 
@@ -172,6 +176,7 @@ function isValid(val) {
 // disables the submit button
 function disableSubmit() {
 	$('#submit').prop('disabled', true);
+	$('#playersGuess').prop('disabled', true);
 }
 
 // true if current guess is closer to randVal
