@@ -1,6 +1,5 @@
 // set global values
 var randVal;
-var input;
 var won = false;
 var lost = false;
 var totalGuesses = 5;
@@ -21,6 +20,7 @@ $(document).ready(function () {
 	// hint button listener
 	$('#hint').on('click', function () {
 		alert('The number is: '+ randVal);
+		$('#playersGuess').focus();
 	});
 
 	// submit key click listener
@@ -185,8 +185,9 @@ $(document).ready(function () {
 		toggleSuccessImage();
 		// disable submit options
 		disableSubmit();
-		// update comparison message
+		// update comparison messages
 		messageUpdate('green', 'You got it!!');
+		compMessage.remove();
 		// update title and lead text
 		$('.title').text("You won!");
 		$('.lead').text("Congratulations! Press the 'Play Again' button to try again.");	
@@ -198,8 +199,9 @@ $(document).ready(function () {
 		toggleFailureImage();
 		// disable submit options
 		disableSubmit();
-		// update comparison message
+		// update comparison messages
 		messageUpdate('blue', 'You ran out of guesses. Don\'t give up - try again!');
+		compMessage.remove();
 		// update title and lead text
 		$('.title').text("Game Over");
 		$('.lead').text("Press 'Play Again' button to try again.");
